@@ -1,0 +1,195 @@
+
+<style>
+:root { --gap: 12px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans, sans-serif); }
+
+.header { padding: 1.5rem 0 1rem; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 1.5rem; }
+.header h1 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.header p { font-size: 13px; color: var(--color-text-secondary); margin-top: 4px; }
+
+.timeline-tabs { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.tab { font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); cursor: pointer; background: transparent; color: var(--color-text-secondary); transition: all .15s; }
+.tab.active, .tab:hover { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); }
+
+.phase-grid { display: grid; grid-template-columns: 120px 1fr 1fr 1fr 1fr; gap: 0; }
+
+.phase-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); padding: 6px 8px; border-right: 0.5px solid var(--color-border-tertiary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; }
+.col-header { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); padding: 6px 8px; text-align: center; border-bottom: 0.5px solid var(--color-border-tertiary); border-right: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); }
+.col-header .phase-num { display: block; font-size: 10px; color: var(--color-text-tertiary); margin-top: 1px; }
+
+.row-label { font-size: 12px; font-weight: 500; padding: 10px 8px; border-right: 0.5px solid var(--color-border-tertiary); border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); display: flex; align-items: flex-start; gap: 6px; }
+.row-icon { font-size: 14px; flex-shrink: 0; margin-top: 0; }
+.cell { padding: 8px; border-right: 0.5px solid var(--color-border-tertiary); border-bottom: 0.5px solid var(--color-border-tertiary); vertical-align: top; min-height: 80px; }
+.cell:last-child { border-right: none; }
+
+.milestone { border-radius: 6px; padding: 5px 8px; font-size: 11px; line-height: 1.4; margin-bottom: 4px; cursor: pointer; transition: opacity .15s; }
+.milestone:last-child { margin-bottom: 0; }
+.milestone:hover { opacity: .8; }
+.milestone.admin { background: var(--color-background-info); color: var(--color-text-info); border: 0.5px solid var(--color-border-info); }
+.milestone.activity { background: var(--color-background-success); color: var(--color-text-success); border: 0.5px solid var(--color-border-success); }
+.milestone.comms { background: var(--color-background-warning); color: var(--color-text-warning); border: 0.5px solid var(--color-border-warning); }
+.milestone.network { background: #F5C4B3; color: #993C1D; border: 0.5px solid #D85A30; }
+.milestone.key { font-weight: 500; }
+
+.legend { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 1rem; }
+.leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--color-text-secondary); }
+.leg-dot { width: 10px; height: 10px; border-radius: 3px; }
+.leg-dot.admin { background: var(--color-background-info); border: 0.5px solid var(--color-border-info); }
+.leg-dot.activity { background: var(--color-background-success); border: 0.5px solid var(--color-border-success); }
+.leg-dot.comms { background: var(--color-background-warning); border: 0.5px solid var(--color-border-warning); }
+.leg-dot.network { background: #F5C4B3; border: 0.5px solid #D85A30; }
+
+.summary-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); margin-top: 1.5rem; }
+.scard { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: .85rem 1rem; }
+.scard-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 4px; }
+.scard-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+.scard-sub { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+
+.detail-panel { display: none; background: var(--color-background-primary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-top: 1rem; }
+.detail-panel.visible { display: block; }
+.detail-panel h3 { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+.detail-panel p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+.close-btn { float: right; background: none; border: none; cursor: pointer; color: var(--color-text-tertiary); font-size: 16px; }
+</style>
+
+<div class="header">
+  <h1>Protect Travail — feuille de route</h1>
+  <p>Projet lancé le 6 mai 2026 · Nick + Samir · Association loi 1901</p>
+</div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot admin"></div> Administratif & juridique</div>
+  <div class="leg-item"><div class="leg-dot activity"></div> Activités & actions</div>
+  <div class="leg-item"><div class="leg-dot comms"></div> Communication</div>
+  <div class="leg-item"><div class="leg-dot network"></div> Réseau & partenaires</div>
+</div>
+
+<div class="phase-grid">
+  <div class="phase-label"></div>
+  <div class="col-header">Phase 1<span class="phase-num">mai–juin 2026</span></div>
+  <div class="col-header">Phase 2<span class="phase-num">juil–sept 2026</span></div>
+  <div class="col-header">Phase 3<span class="phase-num">oct–déc 2026</span></div>
+  <div class="col-header">Phase 4<span class="phase-num">2027 +</span></div>
+
+  <!-- ROW 1: ADMIN -->
+  <div class="row-label"><span class="row-icon">🏛️</span>Admin & statuts</div>
+  <div class="cell">
+    <div class="milestone admin key" onclick="showDetail('Rédiger les statuts (objet, siège, gouvernance). Nommer bureau provisoire : président, trésorier, secrétaire. Prévoir une AG constitutive.', 'Rédaction des statuts')">Rédaction statuts</div>
+    <div class="milestone admin" onclick="showDetail('Dépôt préfecture (ou sous-préfecture). Parution Journal Officiel. Obtention du récépissé de déclaration.', 'Déclaration préfecture')">Déclaration préfecture</div>
+    <div class="milestone admin" onclick="showDetail('Ouverture compte bancaire associatif. Adoption du règlement intérieur. Première AG constitutive.', 'AG constitutive')">Compte bancaire + AG</div>
+  </div>
+  <div class="cell">
+    <div class="milestone admin" onclick="showDetail('Dossier SIRET (INSEE), numéro RNA. Demande d\'assurance RC pro association.', 'Immatriculation')">SIRET + assurance RC</div>
+    <div class="milestone admin" onclick="showDetail('Rédiger le règlement intérieur définitif. Prévoir les modalités de gestion des témoignages (confidentialité, RGPD).', 'Règlement intérieur')">Règlement intérieur + RGPD</div>
+  </div>
+  <div class="cell">
+    <div class="milestone admin" onclick="showDetail('Dépôt dossier agrément préfectoral si souhaité. Exploration label ESUS. Demande de subventions DDETS, Région.', 'Agrément & subventions')">Agrément préfectoral</div>
+    <div class="milestone admin" onclick="showDetail('Bilan comptable de l\'exercice. Rapport moral et financier pour l\'AG annuelle.', 'Bilan & AG annuelle')">Bilan + 1ère AG annuelle</div>
+  </div>
+  <div class="cell">
+    <div class="milestone admin" onclick="showDetail('Consolidation des financements. Exploration mécénat entreprises. Fonds propres, fonds européens FSE+.', 'Consolidation financière')">Consolidation financière</div>
+  </div>
+
+  <!-- ROW 2: GUICHET -->
+  <div class="row-label"><span class="row-icon">🪟</span>Guichet d'accueil</div>
+  <div class="cell">
+    <div class="milestone activity" onclick="showDetail('Définir les modalités d\'accueil : permanences physiques, téléphoniques, email sécurisé. Protocole de premier accueil (écoute, orientation, confidentialité).', 'Protocole accueil')">Protocole d'accueil</div>
+  </div>
+  <div class="cell">
+    <div class="milestone activity key" onclick="showDetail('Ouverture d\'un point d\'accueil physique (local associatif, espace partagé, tiers-lieu). Permanences hebdomadaires. Adresse postale dédiée.', 'Ouverture guichet')">Ouverture 1er guichet</div>
+    <div class="milestone activity" onclick="showDetail('Formulaire de saisine sécurisé en ligne. Espace confidentiel pour dépôt de témoignages et documents.', 'Formulaire en ligne')">Formulaire saisine en ligne</div>
+  </div>
+  <div class="cell">
+    <div class="milestone activity" onclick="showDetail('Recrutement ou conventionnement bénévoles : juriste, RH, psychologue du travail. Formation des bénévoles accueillants.', 'Réseau bénévoles')">Réseau bénévoles qualifiés</div>
+  </div>
+  <div class="cell">
+    <div class="milestone activity" onclick="showDetail('Déploiement multi-sites si volume. Guichet mobile ou itinérant sur Tarn-et-Garonne et Occitanie.', 'Déploiement multi-sites')">Déploiement Occitanie</div>
+  </div>
+
+  <!-- ROW 3: TEMOIGNAGES -->
+  <div class="row-label"><span class="row-icon">💬</span>Témoignages & cas</div>
+  <div class="cell">
+    <div class="milestone activity" onclick="showDetail('Créer une charte de traitement des témoignages : anonymisation, consentement, durée de conservation (RGPD). Grille d\'analyse des cas.', 'Charte témoignages')">Charte + grille d'analyse</div>
+  </div>
+  <div class="cell">
+    <div class="milestone activity" onclick="showDetail('Recueil des 1ers témoignages. Analyse qualitative. Construction d\'une base de cas (anonymisée) pour observatoire.', 'Recueil témoignages')">Recueil 1ers témoignages</div>
+  </div>
+  <div class="cell">
+    <div class="milestone activity key" onclick="showDetail('Publication du 1er rapport d\'observatoire : panorama du harcèlement au travail en Occitanie. Données quantitatives et typologies.', 'Rapport observatoire')">1er rapport observatoire</div>
+  </div>
+  <div class="cell">
+    <div class="milestone activity" onclick="showDetail('Rapport annuel publié. Plaidoyer institutionnel. Utilisation des données pour peser dans le débat public et lobbying législatif.', 'Rapport annuel')">Rapport annuel + plaidoyer</div>
+  </div>
+
+  <!-- ROW 4: FORMATION -->
+  <div class="row-label"><span class="row-icon">🎓</span>Formation & conf.</div>
+  <div class="cell">
+    <div class="milestone activity" onclick="showDetail('Concevoir le catalogue de formations : sensibilisation managers, DRH, représentants syndicaux. Module e-learning optionnel. Référencement Qualiopi si CCFA co-porteuse.', 'Catalogue formation')">Conception catalogue</div>
+  </div>
+  <div class="cell">
+    <div class="milestone activity key" onclick="showDetail('1ère intervention en entreprise : conférence de sensibilisation ou demi-journée de formation. Cible : PME, ETI, secteur public local.', '1ère intervention')">1ère intervention entreprise</div>
+    <div class="milestone activity" onclick="showDetail('1ère conférence publique ou événement de lancement. Lieu : médiathèque, salle associative. Intervenants : juriste, psychologue, victime (volontaire).', '1ère conférence publique')">Conférence de lancement</div>
+  </div>
+  <div class="cell">
+    <div class="milestone activity" onclick="showDetail('Interventions dans lycées, BTS, universités sur les droits des stagiaires et apprentis. Co-animation avec les CPE ou services vie étudiante.', 'Interventions écoles')">Interventions scolaires</div>
+  </div>
+  <div class="cell">
+    <div class="milestone activity" onclick="showDetail('Programme annuel de formations et conférences. Partenariat OPCO, Uniformation. Autofinancement partiel par les formations.', 'Programme annuel')">Programme formations annuel</div>
+  </div>
+
+  <!-- ROW 5: RÉSEAU -->
+  <div class="row-label"><span class="row-icon">🤝</span>Réseau & syndicats</div>
+  <div class="cell">
+    <div class="milestone network" onclick="showDetail('Prise de contact avec les syndicats locaux (CGT, CFDT, FO, CFE-CGC) et sections UD Tarn-et-Garonne. Cartographie des acteurs institutionnels : Inspection du travail, DREETS, Défenseur des droits.', 'Cartographie acteurs')">Cartographie acteurs clés</div>
+  </div>
+  <div class="cell">
+    <div class="milestone network key" onclick="showDetail('Conventions de partenariat avec 2 ou 3 syndicats. Protocole d\'orientation mutuelle des victimes. Convention avec barreau (avocat·e·s bénévoles).', 'Conventions syndicats')">Conventions syndicats + barreau</div>
+    <div class="milestone network" onclick="showDetail('Adhésion ou partenariat avec des réseaux nationaux : AVFT, Harcèlement Stop, Synergies Femmes, Travail & Dignité...', 'Réseau national')">Connexion réseau national</div>
+  </div>
+  <div class="cell">
+    <div class="milestone network" onclick="showDetail('Annuaire en ligne des professionnels référencés : avocats, psychologues du travail, médiateurs, experts RH. Système de mise en relation sécurisée.', 'Annuaire pros')">Annuaire pros en ligne</div>
+  </div>
+  <div class="cell">
+    <div class="milestone network" onclick="showDetail('Plateforme de mise en relation complète. Modèle économique : cotisations pros référencés, abonnements entreprises partenaires.', 'Plateforme mise en relation')">Plateforme mise en relation</div>
+  </div>
+
+  <!-- ROW 6: COMMS -->
+  <div class="row-label"><span class="row-icon">📱</span>Communication</div>
+  <div class="cell">
+    <div class="milestone comms key" onclick="showDetail('Choisir le nom définitif et créer l\'identité visuelle : logo, charte graphique, couleurs. Réserver le nom de domaine (protecttravail.fr ou similaire).', 'Identité visuelle')">Nom + identité visuelle</div>
+    <div class="milestone comms" onclick="showDetail('Ouverture page Facebook et compte Instagram. Contenu de lancement : présentation du projet, appel à témoins, infographies droits des salariés.', 'FB + Instagram')">Lancement FB + Instagram</div>
+  </div>
+  <div class="cell">
+    <div class="milestone comms" onclick="showDetail('Site web vitrine : présentation association, formulaire de contact sécurisé, ressources juridiques, agenda événements.', 'Site web')">Site web en ligne</div>
+    <div class="milestone comms" onclick="showDetail('Ouverture Snapchat et TikTok pour cible 18-30 ans : format court, pédagogie des droits, témoignages anonymisés, réponses Q&A.', 'Snap + TikTok')">Snap + TikTok (18-30 ans)</div>
+  </div>
+  <div class="cell">
+    <div class="milestone comms" onclick="showDetail('Relations presse locales : La Dépêche, Actu82, radios locales. Dossier de presse. Communiqué de lancement officiel.', 'Relations presse')">Relations presse locales</div>
+  </div>
+  <div class="cell">
+    <div class="milestone comms" onclick="showDetail('Newsletter mensuelle. Podcast ou série vidéo. Campagne de notoriété régionale. Présence médias nationaux si observatoire reconnu.', 'Notoriété régionale')">Newsletter + médias nationaux</div>
+  </div>
+</div>
+
+<div class="summary-cards">
+  <div class="scard"><div class="scard-label">Durée phase 1</div><div class="scard-val">8 sem.</div><div class="scard-sub">Fondations juridiques</div></div>
+  <div class="scard"><div class="scard-label">1er guichet ouvert</div><div class="scard-val">M+3</div><div class="scard-sub">Juillet–août 2026</div></div>
+  <div class="scard"><div class="scard-label">1ère intervention</div><div class="scard-val">M+5</div><div class="scard-sub">Septembre–oct. 2026</div></div>
+  <div class="scard"><div class="scard-label">Observatoire actif</div><div class="scard-val">M+8</div><div class="scard-sub">1er rapport fin 2026</div></div>
+</div>
+
+<div id="detail" class="detail-panel">
+  <button class="close-btn" onclick="document.getElementById('detail').classList.remove('visible')">✕</button>
+  <h3 id="detail-title"></h3>
+  <p id="detail-body"></p>
+  <button style="margin-top: 10px; font-size: 12px;" onclick="sendPrompt('Détaille davantage le jalon : ' + document.getElementById('detail-title').textContent)">Développer ce jalon ↗</button>
+</div>
+
+<script>
+function showDetail(body, title) {
+  document.getElementById('detail-title').textContent = title;
+  document.getElementById('detail-body').textContent = body;
+  document.getElementById('detail').classList.add('visible');
+}
+</script>

@@ -1,0 +1,230 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;padding-top:.5rem}
+.pill{font-size:11px;padding:4px 10px;border-radius:20px;border:0.5px solid var(--color-border-secondary);cursor:pointer;background:transparent;color:var(--color-text-secondary);transition:all .15s}
+.pill.on{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:.85rem 1rem;cursor:pointer;transition:border-color .15s}
+.card:hover{border-color:var(--color-border-secondary)}
+.card.hi{border-left:3px solid var(--color-border-danger);border-radius:0 var(--border-radius-lg) var(--border-radius-lg) 0}
+.card.med{border-left:3px solid var(--color-border-warning);border-radius:0 var(--border-radius-lg) var(--border-radius-lg) 0}
+.card.lo{border-left:3px solid var(--color-border-success);border-radius:0 var(--border-radius-lg) var(--border-radius-lg) 0}
+.card-cat{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+.card-cat.syn{color:var(--color-text-info)}
+.card-cat.inst{color:var(--color-text-warning)}
+.card-cat.jur{color:var(--color-text-danger)}
+.card-cat.asso{color:var(--color-text-success)}
+.card-cat.med2{color:var(--color-text-secondary)}
+.card-cat.pro{color:#854F0B}
+.card-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.card-sub{font-size:11px;color:var(--color-text-secondary);line-height:1.4}
+.badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:10px;margin-top:5px}
+.badge.hi{background:var(--color-background-danger);color:var(--color-text-danger)}
+.badge.med{background:var(--color-background-warning);color:var(--color-text-warning)}
+.badge.lo{background:var(--color-background-success);color:var(--color-text-success)}
+.panel{background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1.1rem 1.25rem;margin-top:1rem}
+.panel h3{font-size:15px;font-weight:500;margin-bottom:.4rem}
+.panel-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.75rem}
+.meta-tag{font-size:11px;padding:3px 8px;border-radius:8px;background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.panel p{font-size:13px;color:var(--color-text-secondary);line-height:1.65;margin-bottom:.5rem}
+.panel ul{padding-left:1.1rem;font-size:13px;color:var(--color-text-secondary);line-height:1.7}
+.close-x{float:right;background:none;border:none;cursor:pointer;color:var(--color-text-tertiary);font-size:16px;line-height:1}
+.count{font-size:12px;color:var(--color-text-tertiary);margin-bottom:.75rem}
+</style>
+
+<h2 class="sr-only">Cartographie des acteurs clés pour Protect Travail — Tarn-et-Garonne et Occitanie</h2>
+
+<div class="filters">
+  <button class="pill on" onclick="filter('all',this)">Tous</button>
+  <button class="pill" onclick="filter('syn',this)">Syndicats</button>
+  <button class="pill" onclick="filter('inst',this)">Institutions</button>
+  <button class="pill" onclick="filter('jur',this)">Juridique</button>
+  <button class="pill" onclick="filter('asso',this)">Associations</button>
+  <button class="pill" onclick="filter('pro',this)">Pros du travail</button>
+  <button class="pill" onclick="filter('med2',this)">Médias</button>
+  <span style="margin-left:auto;display:flex;gap:6px;align-items:center">
+    <button class="pill on" id="f-hi" onclick="filterPrio('hi',this)">Priorité haute</button>
+    <button class="pill on" id="f-med" onclick="filterPrio('med',this)">Moyenne</button>
+    <button class="pill on" id="f-lo" onclick="filterPrio('lo',this)">Longue portée</button>
+  </span>
+</div>
+
+<div class="count" id="count">Affichage de tous les acteurs</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="panel" id="panel" style="display:none">
+  <button class="close-x" onclick="document.getElementById('panel').style.display='none'">✕</button>
+  <h3 id="p-name"></h3>
+  <div class="panel-meta" id="p-meta"></div>
+  <p id="p-desc"></p>
+  <div id="p-actions"></div>
+  <div style="margin-top:.75rem;display:flex;gap:8px;flex-wrap:wrap" id="p-btns"></div>
+</div>
+
+<script>
+const ACTORS = [
+  {id:1,cat:'syn',name:'UD CGT 82',sub:'Tarn-et-Garonne',prio:'hi',
+   desc:"L'Union Départementale CGT est un interlocuteur incontournable sur les droits des salariés. Présente dans les entreprises locales, elle dispose de permanences juridiques et de représentants de proximité.",
+   actions:["Prendre contact avec le secrétaire général de l'UD CGT 82","Proposer une convention d'orientation mutuelle des victimes","Inviter un représentant aux événements de lancement"],
+   contact:"UD CGT Tarn-et-Garonne — Montauban"},
+  {id:2,cat:'syn',name:'UD CFDT 82',sub:'Tarn-et-Garonne',prio:'hi',
+   desc:"La CFDT est forte dans les services et la grande distribution en Occitanie. Elle développe des outils de prévention du harcèlement et sera un relais crédible auprès des employeurs du secteur privé.",
+   actions:["Contact avec le délégué régional CFDT Occitanie","Proposer un co-portage d'actions de formation","Explorer une convention de partenariat formelle"],
+   contact:"UD CFDT Tarn-et-Garonne — Montauban"},
+  {id:3,cat:'syn',name:'FO 82',sub:'Tarn-et-Garonne',prio:'med',
+   desc:"Force Ouvrière est particulièrement implantée dans la fonction publique et les collectivités locales de 82. Utile pour toucher les agents publics victimes de harcèlement institutionnel.",
+   actions:["Contact avec l'UD FO 82","Présentation du projet en réunion mensuelle"],
+   contact:"FO Tarn-et-Garonne"},
+  {id:4,cat:'syn',name:'CFE-CGC Occitanie',sub:'Cadres & encadrement',prio:'med',
+   desc:"La CFE-CGC représente les cadres et agents de maîtrise, une catégorie souvent silencieuse face au harcèlement managérial. Un partenariat avec la CGC permettrait d'accéder à ce segment peu couvert.",
+   actions:["Contact avec le coordinateur régional Occitanie","Proposer un module de formation spécifique cadres"],
+   contact:"CFE-CGC Occitanie — Toulouse"},
+  {id:5,cat:'syn',name:'UNSA 82',sub:'Services publics',prio:'lo',
+   desc:"L'UNSA est bien implantée dans l'éducation nationale et les collectivités. Utile pour les interventions dans les établissements scolaires et les mairies.",
+   actions:["Contact différé en phase 2","Proposer une intervention conjointe lycées"],
+   contact:"UNSA 82"},
+
+  {id:6,cat:'inst',name:'Inspection du Travail',sub:'DREETS Occitanie — Unité 82',prio:'hi',
+   desc:"L'Inspection du Travail (DREETS) est l'autorité de contrôle des conditions de travail. C'est un partenaire institutionnel essentiel pour les dossiers complexes, la validation des procédures et la légitimité de l'association.",
+   actions:["Prendre rendez-vous avec le responsable de l'unité territoriale 82","Demander à être référencé comme association de soutien","Clarifier les limites de compétences et de coopération possibles"],
+   contact:"DREETS Occitanie — UT Tarn-et-Garonne, Montauban"},
+  {id:7,cat:'inst',name:'Défenseur des droits',sub:'Délégué départemental 82',prio:'hi',
+   desc:"Le Délégué territorial du Défenseur des droits traite les discriminations et violences au travail. Une convention de coopération permettrait une orientation bidirectionnelle des victimes.",
+   actions:["Identifier le délégué territorial en poste pour le 82","Rencontre et présentation du projet","Explorer une convention de co-orientation"],
+   contact:"Délégué territorial Défenseur des droits — 82"},
+  {id:8,cat:'inst',name:'Conseil Départemental 82',sub:'Politiques sociales',prio:'med',
+   desc:"Le CD82 finance des associations d'aide aux victimes et pilote les politiques d'insertion. Une demande de subvention est envisageable dès la phase 2, après la première année d'activité.",
+   actions:["Identifier l'élu référent aux politiques associatives","Demande de subvention à formuler en phase 2","Solliciter une présence à un événement de l'asso"],
+   contact:"Conseil Départemental 82 — Montauban"},
+  {id:9,cat:'inst',name:'Préfecture 82',sub:'Bureau des associations',prio:'hi',
+   desc:"La déclaration de l'association se fait en préfecture. Le bureau des associations peut également orienter vers des aides et signaler l'association aux services de l'État partenaires.",
+   actions:["Dépôt du dossier de déclaration loi 1901 (Cerfa 13973 + 13971)","Demande de récépissé et parution JO","Demander à figurer dans l'annuaire des associations d'utilité publique"],
+   contact:"Préfecture de Tarn-et-Garonne — Bureau des associations, Montauban"},
+  {id:10,cat:'inst',name:'CPAM 82',sub:'Risques professionnels',prio:'med',
+   desc:"La CPAM gère les accidents du travail et maladies professionnelles. Le harcèlement peut déboucher sur une reconnaissance en AT/MP. Un partenariat permettrait d'orienter les victimes vers les bons guichets.",
+   actions:["Contact avec le service prévention des risques professionnels","Explorer un protocole d'orientation commun"],
+   contact:"CPAM Tarn-et-Garonne — Montauban"},
+  {id:11,cat:'inst',name:'Mairie de Montauban',sub:'Mission sociale & ESS',prio:'med',
+   desc:"La Mairie de Montauban soutient les initiatives associatives locales et dispose d'une politique ESS. Peut accorder une mise à disposition de salle, un soutien en communication ou une subvention.",
+   actions:["Contact avec l'adjoint chargé des associations ou de l'ESS","Demande de mise à disposition de salle pour permanences","Inscription au Dispositif Local d'Accompagnement (DLA) si disponible"],
+   contact:"Mairie de Montauban — Mission vie associative"},
+
+  {id:12,cat:'jur',name:'Barreau de Montauban',sub:'Avocats droit du travail',prio:'hi',
+   desc:"Le barreau regroupe les avocats spécialisés en droit social. Une convention avec le Barreau permettrait de disposer d'avocats bénévoles pour des permanences de premier conseil juridique gratuit.",
+   actions:["Contacter le Bâtonnier ou la Commission accès au droit","Proposer une convention de consultations gratuites mensuelles","Identifier 3 à 5 avocats spécialisés en droit du travail prêts à s'impliquer"],
+   contact:"Barreau de Montauban — Palais de Justice, Montauban"},
+  {id:13,cat:'jur',name:'Maison de la Justice',sub:'MJD — Tarn-et-Garonne',prio:'hi',
+   desc:"La MJD offre des consultations juridiques gratuites et un accès au droit de proximité. Un partenariat permettrait de renforcer le guichet d'accueil par une présence juridique régulière.",
+   actions:["Rencontre avec le directeur de la MJD","Négociation d'un créneau de permanence conjoint","Intégrer la MJD dans les circuits d'orientation"],
+   contact:"Maison de la Justice et du Droit — Montauban"},
+  {id:14,cat:'jur',name:'CARSAT Occitanie',sub:'Prévention risques pro.',prio:'med',
+   desc:"La CARSAT finance des actions de prévention des risques psychosociaux (RPS) en entreprise. Elle peut co-financer des formations ou des interventions en entreprise.",
+   actions:["Contact avec le service prévention","Dossier de demande de co-financement formation RPS"],
+   contact:"CARSAT Occitanie — Toulouse (antenne 82)"},
+  {id:15,cat:'jur',name:'ARACT Occitanie',sub:'Amélioration cond. de travail',prio:'med',
+   desc:"L'ARACT (Agence Régionale pour l'Amélioration des Conditions de Travail) accompagne les entreprises sur les RPS. Un partenariat technique renforcerait la crédibilité des formations de Protect Travail.",
+   actions:["Prise de contact avec la direction régionale","Proposer un partenariat sur un module commun","Explorer une co-labellisation des formations"],
+   contact:"ARACT Occitanie — Toulouse"},
+
+  {id:16,cat:'asso',name:'AVFT',sub:'Asso. contre violences faites aux femmes au travail',prio:'hi',
+   desc:"L'AVFT est l'association nationale de référence sur le harcèlement sexuel au travail. Un partenariat avec l'AVFT donnerait accès à leur réseau national, leur expertise juridique et une légitimité immédiate.",
+   actions:["Contacter la direction de l'AVFT (Paris)","Demander une adhésion ou un partenariat réseau","Proposer d'être relais territorial Occitanie"],
+   contact:"AVFT — Association européenne contre les violences faites aux femmes au travail, Paris"},
+  {id:17,cat:'asso',name:'Harcèlement Stop',sub:'Réseau national',prio:'med',
+   desc:"Association nationale de lutte contre le harcèlement moral, dispose d'un réseau de professionnels et d'une base de données jurisprudentielle. Partenaire naturel pour le partage de ressources.",
+   actions:["Contact via leur site web","Proposer une convention de référencement mutuel"],
+   contact:"Harcèlement Stop — harcèlement-stop.fr"},
+  {id:18,cat:'asso',name:'CIDFF 82',sub:'Centre info droits femmes & familles',prio:'hi',
+   desc:"Le CIDFF accompagne les femmes victimes de violences, y compris au travail. Interlocuteur local déjà bien implanté à Montauban, avec des permanences et une équipe de juristes.",
+   actions:["Rencontre avec la directrice","Convention d'orientation croisée","Partager les créneaux de permanence pour mutualiser les coûts"],
+   contact:"CIDFF 82 — Montauban"},
+  {id:19,cat:'asso',name:'France Victimes 82',sub:'Aide aux victimes',prio:'hi',
+   desc:"Réseau national d'aide aux victimes d'infractions, avec une antenne en 82. Peut orienter des victimes d'infractions pénales liées au harcèlement (art. 222-33-2 CP) vers Protect Travail.",
+   actions:["Contact avec le responsable local","Protocole d'orientation mutuelle","Participation aux permanences au palais de justice"],
+   contact:"France Victimes 82 — Montauban"},
+  {id:20,cat:'asso',name:'Le Génie',sub:'Tiers-lieu ESS — Montauban',prio:'hi',
+   desc:"Tiers-lieu coworking ESS à Montauban, co-fondé par Samir. Peut accueillir les permanences d'accueil, les formations et conférences de Protect Travail, et constituer le siège social provisoire.",
+   actions:["Formaliser une convention de mise à disposition de salle","Créer une synergie de communication entre les deux structures","Proposer à la communauté du Génie d'intégrer le réseau de bénévoles"],
+   contact:"Le Génie — 12 rue du Génie, 82000 Montauban"},
+
+  {id:21,cat:'pro',name:'Psychologues du travail',sub:'Réseau Occitanie',prio:'med',
+   desc:"Les psychologues du travail interviennent sur les RPS, le burnout et les traumatismes liés au harcèlement. Constituer un réseau de 5 à 10 praticiens référencés est un axe clé du service de mise en relation.",
+   actions:["Cartographier les psychologues du travail libéraux en 82 et Haute-Garonne","Créer une charte d'engagement des pros référencés","Proposer une visibilité sur le site en échange d'un tarif solidaire"],
+   contact:"Ordre des Psychologues — antenne Occitanie"},
+  {id:22,cat:'pro',name:'Médiateurs du travail',sub:'Médiation inter-professionnelle',prio:'med',
+   desc:"Les médiateurs certifiés peuvent intervenir en amont du contentieux pour résoudre des situations de harcèlement ou de conflit. Un réseau de médiateurs référencés complète utilement l'offre.",
+   actions:["Contact avec CMAP ou IME pour identifier des médiateurs en 82","Définir un protocole de saisine","Intégrer la médiation dans le parcours d'accompagnement"],
+   contact:"CMAP — Centre de Médiation et d'Arbitrage de Paris (antenne régionale)"},
+  {id:23,cat:'pro',name:'Consultants RH / IPRP',sub:'Intervenants en prévention RPS',prio:'lo',
+   desc:"Les IPRP (Intervenants en Prévention des Risques Professionnels) interviennent en entreprise sur les RPS. Un réseau d'IPRP référencés donnerait à Protect Travail une capacité d'intervention interne en entreprise.",
+   actions:["Cartographier les IPRP certifiés en Occitanie","Proposer une co-animation des formations en entreprise"],
+   contact:"INRS — liste des IPRP agréés"},
+
+  {id:24,cat:'med2',name:'La Dépêche du Midi',sub:'Presse régionale — Montauban',prio:'med',
+   desc:"Premier quotidien régional d'Occitanie. Un article de lancement dans La Dépêche donnerait une visibilité locale immédiate et légitimerait le projet auprès des acteurs institutionnels.",
+   actions:["Rédiger un communiqué de presse pour le lancement","Contacter le correspondant local Montauban","Proposer un portrait des fondateurs pour la rubrique société"],
+   contact:"La Dépêche du Midi — rédaction Montauban"},
+  {id:25,cat:'med2',name:'Actu 82 / France Bleu',sub:'Web & radio locale',prio:'med',
+   desc:"Actu.fr couvre l'actualité locale de Tarn-et-Garonne avec une forte audience numérique. France Bleu Occitanie touche un public large en matinale. Deux cibles pour le lancement.",
+   actions:["Envoyer le communiqué de presse à Actu82","Proposer une interview en direct à France Bleu Occitanie"],
+   contact:"Actu82 — actu.fr/tarn-et-garonne"},
+];
+
+let activeFilter = 'all';
+let activePrios = new Set(['hi','med','lo']);
+
+function render(){
+  const g = document.getElementById('grid');
+  const visible = ACTORS.filter(a =>
+    (activeFilter==='all' || a.cat===activeFilter) && activePrios.has(a.prio)
+  );
+  document.getElementById('count').textContent = visible.length + ' acteur' + (visible.length>1?'s':'') + ' affiché' + (visible.length>1?'s':'');
+  g.innerHTML = visible.map(a=>`
+    <div class="card ${a.prio}" onclick="showPanel(${a.id})">
+      <div class="card-cat ${a.cat}">${catLabel(a.cat)}</div>
+      <div class="card-name">${a.name}</div>
+      <div class="card-sub">${a.sub}</div>
+      <span class="badge ${a.prio}">${prioLabel(a.prio)}</span>
+    </div>`).join('');
+}
+
+function catLabel(c){return{syn:'Syndicat',inst:'Institution',jur:'Juridique',asso:'Association',pro:'Pro du travail',med2:'Médias'}[c]}
+function prioLabel(p){return{hi:'Priorité haute',med:'Phase 2',lo:'Long terme'}[p]}
+
+function filter(cat,btn){
+  activeFilter=cat;
+  document.querySelectorAll('.filters .pill').forEach(b=>{
+    if(['f-hi','f-med','f-lo'].includes(b.id)) return;
+    b.classList.remove('on');
+  });
+  btn.classList.add('on');
+  render();
+}
+
+function filterPrio(p,btn){
+  if(activePrios.has(p)) activePrios.delete(p); else activePrios.add(p);
+  btn.classList.toggle('on', activePrios.has(p));
+  render();
+}
+
+function showPanel(id){
+  const a = ACTORS.find(x=>x.id===id);
+  document.getElementById('p-name').textContent = a.name;
+  document.getElementById('p-meta').innerHTML =
+    `<span class="meta-tag">${catLabel(a.cat)}</span>` +
+    `<span class="meta-tag">${a.sub}</span>` +
+    `<span class="badge ${a.prio}" style="font-size:11px;padding:3px 8px">${prioLabel(a.prio)}</span>`;
+  document.getElementById('p-desc').textContent = a.desc;
+  document.getElementById('p-actions').innerHTML =
+    '<p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin:.5rem 0 .25rem">Actions à mener</p>' +
+    '<ul>' + a.actions.map(x=>`<li>${x}</li>`).join('') + '</ul>';
+  document.getElementById('p-btns').innerHTML =
+    `<button onclick="sendPrompt('Rédige un email de prise de contact avec ${a.name} pour présenter Protect Travail')" style="font-size:12px">Rédiger l'email de contact ↗</button>` +
+    `<button onclick="sendPrompt('Quels arguments mettre en avant pour convaincre ${a.name} de signer un partenariat avec Protect Travail ?')" style="font-size:12px">Stratégie de partenariat ↗</button>`;
+  document.getElementById('panel').style.display = 'block';
+}
+
+render();
+</script>
