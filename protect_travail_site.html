@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protect Travail — Contre le harcèlement au travail</title>
+<meta name="description" content="Protect Travail accompagne les victimes de harcèlement au travail en Occitanie. Guichet d'accueil, orientation juridique, réseau de professionnels.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noir: #0D0D0D;
+  --blanc: #F5F2ED;
+  --rouge: #B83232;
+  --rouge-pale: #F2E8E8;
+  --gris: #6B6863;
+  --gris-clair: #E8E4DF;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--blanc);
+  color: var(--noir);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2.5rem;
+  background: rgba(245,242,237,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid var(--gris-clair);
+  transition: padding .3s;
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: var(--noir);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.nav-logo::before {
+  content: '';
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--rouge);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: .85rem;
+  font-weight: 400;
+  color: var(--gris);
+  text-decoration: none;
+  letter-spacing: .02em;
+  transition: color .2s;
+}
+
+.nav-links a:hover { color: var(--noir); }
+
+.nav-cta {
+  background: var(--rouge);
+  color: #fff !important;
+  padding: .5rem 1.25rem;
+  border-radius: 2px;
+  font-weight: 500 !important;
+  transition: background .2s !important;
+}
+
+.nav-cta:hover { background: #8E1F1F !important; color: #fff !important; }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem 4rem 6rem 6rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 2rem;
+}
+
+.hero-tag::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 1px;
+  background: var(--rouge);
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  color: var(--noir);
+  margin-bottom: 1.5rem;
+  letter-spacing: -.02em;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--rouge);
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--gris);
+  line-height: 1.7;
+  max-width: 42ch;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--rouge);
+  color: #fff;
+  padding: .85rem 2rem;
+  font-family: var(--sans);
+  font-size: .9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background .2s, transform .15s;
+  letter-spacing: .01em;
+}
+
+.btn-primary:hover { background: #8E1F1F; transform: translateY(-1px); }
+
+.btn-ghost {
+  color: var(--noir);
+  font-size: .9rem;
+  font-weight: 400;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .85rem 0;
+  border-bottom: 1px solid var(--noir);
+  transition: gap .2s;
+}
+
+.btn-ghost:hover { gap: .8rem; }
+
+.hero-right {
+  background: var(--noir);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-right::before {
+  content: '';
+  position: absolute;
+  top: -30%; right: -20%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(184,50,50,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-form-wrap {
+  background: rgba(245,242,237,0.06);
+  border: 0.5px solid rgba(245,242,237,0.12);
+  border-radius: 4px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  z-index: 1;
+}
+
+.form-label {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--blanc);
+  margin-bottom: .5rem;
+  display: block;
+  line-height: 1.3;
+}
+
+.form-sub {
+  font-size: .8rem;
+  color: rgba(245,242,237,.5);
+  margin-bottom: 1.75rem;
+  line-height: 1.6;
+}
+
+.form-group { margin-bottom: 1rem; }
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: rgba(245,242,237,.07);
+  border: 0.5px solid rgba(245,242,237,.2);
+  border-radius: 2px;
+  padding: .75rem 1rem;
+  font-family: var(--sans);
+  font-size: .875rem;
+  color: var(--blanc);
+  outline: none;
+  transition: border-color .2s;
+  -webkit-appearance: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: rgba(245,242,237,.35); }
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: rgba(184,50,50,.6);
+}
+
+.form-group select option { background: #1a1a1a; color: #fff; }
+.form-group textarea { resize: vertical; min-height: 80px; }
+
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-check input[type="checkbox"] {
+  width: 14px; height: 14px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  accent-color: var(--rouge);
+}
+
+.form-check label {
+  font-size: .75rem;
+  color: rgba(245,242,237,.45);
+  line-height: 1.5;
+}
+
+.form-submit {
+  width: 100%;
+  background: var(--rouge);
+  color: #fff;
+  padding: .9rem;
+  font-family: var(--sans);
+  font-size: .875rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background .2s;
+  letter-spacing: .02em;
+}
+
+.form-submit:hover { background: #8E1F1F; }
+
+.form-secure {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .75rem;
+  font-size: .7rem;
+  color: rgba(245,242,237,.3);
+}
+
+/* ─── SECTIONS COMMUNES ─── */
+section { padding: 6rem 0; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 1.25rem;
+}
+
+.section-tag::before {
+  content: '';
+  display: inline-block;
+  width: 16px; height: 1px;
+  background: var(--rouge);
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  line-height: 1.15;
+  color: var(--noir);
+  letter-spacing: -.02em;
+  margin-bottom: 1rem;
+}
+
+.section-title em { font-style: italic; color: var(--rouge); }
+
+.section-intro {
+  font-size: 1rem;
+  color: var(--gris);
+  max-width: 60ch;
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+/* ─── PILIERS ─── */
+#action { background: var(--blanc); }
+
+.piliers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 3.5rem;
+}
+
+.pilier {
+  background: var(--blanc);
+  border: 0.5px solid var(--gris-clair);
+  padding: 2.5rem 2rem;
+  transition: background .2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.pilier::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--rouge);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s ease;
+}
+
+.pilier:hover::after { transform: scaleX(1); }
+.pilier:hover { background: #FBF9F6; }
+
+.pilier-num {
+  font-family: var(--serif);
+  font-size: 3.5rem;
+  color: var(--gris-clair);
+  line-height: 1;
+  margin-bottom: 1.25rem;
+  font-style: italic;
+}
+
+.pilier-title {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--noir);
+  margin-bottom: .75rem;
+  letter-spacing: -.01em;
+}
+
+.pilier-text {
+  font-size: .9rem;
+  color: var(--gris);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.pilier-more {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  margin-top: 1.5rem;
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--rouge);
+  text-decoration: none;
+  letter-spacing: .02em;
+  transition: gap .2s;
+}
+
+.pilier-more:hover { gap: .6rem; }
+
+/* ─── COMMENT ÇA MARCHE ─── */
+#guichet { background: var(--noir); color: var(--blanc); }
+#guichet .section-title { color: var(--blanc); }
+#guichet .section-intro { color: rgba(245,242,237,.6); }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 3.5rem;
+  border: 0.5px solid rgba(245,242,237,.1);
+}
+
+.step {
+  padding: 2.5rem 2rem;
+  border-right: 0.5px solid rgba(245,242,237,.08);
+  position: relative;
+}
+
+.step:last-child { border-right: none; }
+
+.step-num {
+  font-family: var(--serif);
+  font-size: 2.5rem;
+  font-style: italic;
+  color: var(--rouge);
+  opacity: .7;
+  margin-bottom: 1.25rem;
+  line-height: 1;
+}
+
+.step-title {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--blanc);
+  margin-bottom: .6rem;
+}
+
+.step-text {
+  font-size: .85rem;
+  color: rgba(245,242,237,.5);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ─── CHIFFRES ─── */
+#chiffres { background: var(--rouge-pale); }
+
+.chiffres-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+
+.chiffre-card {
+  text-align: center;
+  padding: 2rem 1rem;
+  border-top: 2px solid var(--rouge);
+}
+
+.chiffre-val {
+  font-family: var(--serif);
+  font-size: 3.2rem;
+  color: var(--rouge);
+  font-style: italic;
+  display: block;
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+
+.chiffre-label {
+  font-size: .85rem;
+  color: var(--gris);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.chiffres-source {
+  margin-top: 2rem;
+  font-size: .75rem;
+  color: var(--gris);
+  text-align: right;
+}
+
+/* ─── TEMOIGNAGE ─── */
+#temoigner { background: var(--blanc); }
+
+.temoigner-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 3.5rem;
+  align-items: start;
+}
+
+.temoigner-left {}
+
+.temoigner-list {
+  list-style: none;
+  margin-top: 2rem;
+}
+
+.temoigner-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 0.5px solid var(--gris-clair);
+  font-size: .9rem;
+  color: var(--gris);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.temoigner-list li::before {
+  content: '✓';
+  color: var(--rouge);
+  font-size: .9rem;
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.temoigner-form {
+  background: var(--noir);
+  padding: 2.5rem;
+  border-radius: 2px;
+}
+
+.temoigner-form .form-label { font-size: 1.2rem; margin-bottom: .4rem; }
+
+/* ─── PARTENAIRES ─── */
+#partenaires { background: var(--blanc); padding: 4rem 0; border-top: 0.5px solid var(--gris-clair); }
+
+.partenaires-bar {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+.partenaire-item {
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--gris-clair);
+  transition: color .2s;
+}
+
+.partenaire-item:hover { color: var(--gris); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--noir);
+  color: rgba(245,242,237,.5);
+  padding: 4rem 0 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.footer-brand .nav-logo { color: var(--blanc); margin-bottom: 1rem; display: flex; }
+
+.footer-brand p {
+  font-size: .8rem;
+  line-height: 1.7;
+  color: rgba(245,242,237,.4);
+  max-width: 28ch;
+  font-weight: 300;
+}
+
+.footer-col h4 {
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(245,242,237,.3);
+  margin-bottom: 1.25rem;
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.footer-col ul a {
+  font-size: .82rem;
+  color: rgba(245,242,237,.45);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.footer-col ul a:hover { color: var(--blanc); }
+
+.footer-bottom {
+  border-top: 0.5px solid rgba(245,242,237,.08);
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-bottom p { font-size: .72rem; color: rgba(245,242,237,.25); }
+
+.footer-legal {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-legal a {
+  font-size: .72rem;
+  color: rgba(245,242,237,.25);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.footer-legal a:hover { color: rgba(245,242,237,.5); }
+
+/* ─── BANDEAU URGENCE ─── */
+.urgence-band {
+  background: var(--rouge);
+  color: #fff;
+  text-align: center;
+  padding: .65rem 2rem;
+  font-size: .8rem;
+  font-weight: 400;
+  letter-spacing: .01em;
+  position: relative;
+  z-index: 101;
+}
+
+.urgence-band strong { font-weight: 600; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-tag, .hero-title, .hero-sub, .hero-actions {
+  animation: fadeUp .7s ease both;
+}
+
+.hero-tag   { animation-delay: .1s; }
+.hero-title { animation-delay: .25s; }
+.hero-sub   { animation-delay: .4s; }
+.hero-actions { animation-delay: .55s; }
+
+.hero-form-wrap {
+  animation: fadeUp .8s .3s ease both;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  #hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 5rem 2rem 3rem; }
+  .hero-right { padding: 3rem 2rem; }
+  .piliers-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .step { border-right: none; border-bottom: 0.5px solid rgba(245,242,237,.08); }
+  .chiffres-grid { grid-template-columns: 1fr 1fr; }
+  .temoigner-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+}
+
+@media (max-width: 560px) {
+  .steps { grid-template-columns: 1fr; }
+  .chiffres-grid { grid-template-columns: 1fr 1fr; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+}
+
+/* Notification toast */
+.toast {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  background: var(--noir);
+  color: var(--blanc);
+  padding: 1rem 1.5rem;
+  border-radius: 2px;
+  font-size: .875rem;
+  border-left: 3px solid var(--rouge);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all .3s ease;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.toast.show { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- Bandeau urgence -->
+<div class="urgence-band">
+  Vous êtes victime ou témoin ? <strong>Contactez-nous</strong> — nous répondons sous 48h, en toute confidentialité.
+</div>
+
+<!-- Navigation -->
+<nav>
+  <a href="#" class="nav-logo">Protect Travail</a>
+  <ul class="nav-links">
+    <li><a href="#action">Notre action</a></li>
+    <li><a href="#guichet">Guichet</a></li>
+    <li><a href="#chiffres">Observatoire</a></li>
+    <li><a href="#temoigner">Témoigner</a></li>
+    <li><a href="#temoigner" class="nav-cta">Demander de l'aide</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-left">
+    <span class="hero-tag">Tarn-et-Garonne · Occitanie</span>
+    <h1 class="hero-title">
+      Le travail<br>
+      ne doit pas<br>
+      <em>vous briser.</em>
+    </h1>
+    <p class="hero-sub">
+      Protect Travail accompagne les victimes et témoins de harcèlement au travail. Écoute, orientation juridique, mise en relation avec des professionnels — en toute confidentialité.
+    </p>
+    <div class="hero-actions">
+      <a href="#temoigner" class="btn-primary">Demander de l'aide</a>
+      <a href="#action" class="btn-ghost">Découvrir notre action →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-form-wrap">
+      <span class="form-label">Parlons-nous</span>
+      <p class="form-sub">Premier contact confidentiel. Nous vous répondons sous 48h.</p>
+
+      <form id="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <input type="text" placeholder="Votre prénom (ou un pseudonyme)" name="prenom">
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="Votre adresse email" name="email" required>
+        </div>
+        <div class="form-group">
+          <select name="situation">
+            <option value="" disabled selected>Votre situation</option>
+            <option>Je suis victime de harcèlement moral</option>
+            <option>Je suis victime de harcèlement sexuel</option>
+            <option>Je suis témoin d'une situation de harcèlement</option>
+            <option>Je cherche des informations sur mes droits</option>
+            <option>Je suis employeur cherchant à prévenir</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <textarea placeholder="Décrivez brièvement votre situation (facultatif)..." name="message"></textarea>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="rgpd" name="rgpd" required>
+          <label for="rgpd">J'accepte que mes données soient traitées uniquement pour répondre à ma demande, conformément à notre politique de confidentialité RGPD.</label>
+        </div>
+        <button type="submit" class="form-submit">Envoyer ma demande</button>
+        <p class="form-secure">🔒 Données chiffrées — Traitement confidentiel — Anonymisation possible</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Notre action -->
+<section id="action">
+  <div class="container">
+    <span class="section-tag">Ce que nous faisons</span>
+    <h2 class="section-title">Une réponse <em>complète</em><br>sur trois piliers</h2>
+    <p class="section-intro">De l'écoute au réseau de professionnels, nous construisons la chaîne d'accompagnement qui manquait en Tarn-et-Garonne.</p>
+
+    <div class="piliers-grid">
+      <div class="pilier">
+        <div class="pilier-num">01</div>
+        <h3 class="pilier-title">Écouter</h3>
+        <p class="pilier-text">Un guichet d'accueil physique et numérique ouvert à toute personne victime ou témoin. Permanences hebdomadaires à Montauban. Formulaire de saisine sécurisé en ligne. Confidentialité garantie, anonymisation possible.</p>
+        <a href="#guichet" class="pilier-more">Comment ça marche →</a>
+      </div>
+      <div class="pilier">
+        <div class="pilier-num">02</div>
+        <h3 class="pilier-title">Orienter</h3>
+        <p class="pilier-text">Premier conseil juridique gratuit avec des avocats spécialisés en droit du travail. Orientation vers l'Inspection du Travail, la CPAM, le Défenseur des droits. Mise en relation avec des psychologues du travail référencés.</p>
+        <a href="#temoigner" class="pilier-more">Trouver de l'aide →</a>
+      </div>
+      <div class="pilier">
+        <div class="pilier-num">03</div>
+        <h3 class="pilier-title">Agir</h3>
+        <p class="pilier-text">Formations et conférences en entreprises, établissements scolaires et auprès du grand public. Observatoire local du harcèlement au travail en 82. Réseau de professionnels pour une mise en relation directe et sécurisée.</p>
+        <a href="#chiffres" class="pilier-more">L'observatoire →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Guichet -->
+<section id="guichet">
+  <div class="container">
+    <span class="section-tag" style="color:rgba(245,242,237,.4)">Le parcours d'accompagnement</span>
+    <h2 class="section-title">Comment fonctionne<br>notre <em>guichet</em> ?</h2>
+    <p class="section-intro" style="color:rgba(245,242,237,.5)">Quatre étapes, de votre premier contact jusqu'à votre accompagnement dans la durée.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3 class="step-title">Premier contact</h3>
+        <p class="step-text">Via le formulaire en ligne, par email ou lors d'une permanence physique à Montauban. Vous pouvez rester anonyme.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3 class="step-title">Entretien d'accueil</h3>
+        <p class="step-text">Un bénévole formé vous contacte sous 48h pour un entretien confidentiel d'écoute et d'évaluation de votre situation.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3 class="step-title">Orientation</h3>
+        <p class="step-text">Selon votre situation, nous vous orientons vers les ressources adaptées : juridique, psychologique, médiation ou procédure formelle.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3 class="step-title">Accompagnement</h3>
+        <p class="step-text">Suivi dans la durée par notre réseau de professionnels. Vous n'êtes jamais seul·e dans vos démarches.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Chiffres -->
+<section id="chiffres">
+  <div class="container">
+    <span class="section-tag">Observatoire</span>
+    <h2 class="section-title">Le harcèlement au travail<br>en <em>chiffres</em></h2>
+    <p class="section-intro">Des données nationales qui disent l'ampleur du phénomène. Notre observatoire local produira dès 2026 les premières statistiques spécifiques au 82.</p>
+
+    <div class="chiffres-grid">
+      <div class="chiffre-card">
+        <span class="chiffre-val">1/5</span>
+        <p class="chiffre-label">Salariés déclarent avoir été victimes de harcèlement au cours de leur carrière</p>
+      </div>
+      <div class="chiffre-card">
+        <span class="chiffre-val">35 %</span>
+        <p class="chiffre-label">Des victimes n'en parlent à personne, par peur des représailles ou de ne pas être crues</p>
+      </div>
+      <div class="chiffre-card">
+        <span class="chiffre-val">2 ans</span>
+        <p class="chiffre-label">Délai moyen entre le début du harcèlement et la première démarche officielle d'une victime</p>
+      </div>
+      <div class="chiffre-card">
+        <span class="chiffre-val">80 %</span>
+        <p class="chiffre-label">Des situations auraient pu être résolues plus tôt avec un accompagnement de premier niveau</p>
+      </div>
+    </div>
+    <p class="chiffres-source">Sources : DARES 2023, Enquête Conditions de travail, rapport AVFT 2024</p>
+  </div>
+</section>
+
+<!-- Témoigner / saisine -->
+<section id="temoigner">
+  <div class="container">
+    <div class="temoigner-grid">
+      <div class="temoigner-left">
+        <span class="section-tag">Saisine sécurisée</span>
+        <h2 class="section-title">Parlez-nous de<br>votre <em>situation</em></h2>
+        <p class="section-intro">Déposer un témoignage, c'est aussi contribuer à faire avancer la connaissance du phénomène — et potentiellement aider d'autres victimes.</p>
+
+        <ul class="temoigner-list">
+          <li>Votre identité peut rester strictement confidentielle</li>
+          <li>Vos données sont traitées conformément au RGPD</li>
+          <li>Votre témoignage ne sera jamais publié sans votre accord explicite</li>
+          <li>Vous pouvez demander l'effacement de vos données à tout moment</li>
+          <li>Nos bénévoles sont formés à l'écoute et à la confidentialité</li>
+        </ul>
+      </div>
+
+      <div class="temoigner-form">
+        <span class="form-label">Déposer un témoignage</span>
+        <p class="form-sub">Formulaire sécurisé · Anonymisation possible · Réponse sous 48h</p>
+
+        <form id="temoignage-form" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <input type="text" placeholder="Prénom ou pseudonyme" name="prenom">
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Email (pour vous recontacter)" name="email">
+          </div>
+          <div class="form-group">
+            <select name="type">
+              <option value="" disabled selected>Type de harcèlement</option>
+              <option>Harcèlement moral</option>
+              <option>Harcèlement sexuel</option>
+              <option>Violence psychologique</option>
+              <option>Discrimination</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select name="secteur">
+              <option value="" disabled selected>Secteur d'activité</option>
+              <option>Secteur public / Collectivité</option>
+              <option>Santé / Social</option>
+              <option>Commerce / Distribution</option>
+              <option>Industrie</option>
+              <option>Services</option>
+              <option>Éducation</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea placeholder="Décrivez votre situation. Vous pouvez rester très général si vous préférez..." name="temoignage" style="min-height:120px"></textarea>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="rgpd2" name="rgpd" required>
+            <label for="rgpd2">J'accepte le traitement confidentiel de mes données. Je comprends que mon témoignage anonymisé pourra contribuer à l'observatoire local.</label>
+          </div>
+          <button type="submit" class="form-submit">Envoyer mon témoignage</button>
+          <p class="form-secure">🔒 Chiffrement SSL · Données hébergées en France · RGPD</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Partenaires -->
+<section id="partenaires">
+  <div class="container">
+    <span class="section-tag">Réseau</span>
+    <p style="font-size:.85rem;color:var(--gris);max-width:50ch">Protect Travail agit en réseau avec des partenaires institutionnels, syndicaux et associatifs.</p>
+    <div class="partenaires-bar">
+      <span class="partenaire-item">Inspection du Travail</span>
+      <span class="partenaire-item">Défenseur des droits</span>
+      <span class="partenaire-item">Barreau de Montauban</span>
+      <span class="partenaire-item">CGT 82</span>
+      <span class="partenaire-item">CFDT 82</span>
+      <span class="partenaire-item">CIDFF 82</span>
+      <span class="partenaire-item">France Victimes 82</span>
+      <span class="partenaire-item">Le Génie</span>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="color:var(--blanc)">Protect Travail</a>
+        <p>Association loi 1901 dédiée à la lutte contre le harcèlement au travail en Tarn-et-Garonne et en Occitanie.</p>
+      </div>
+      <div class="footer-col">
+        <h4>L'association</h4>
+        <ul>
+          <li><a href="#">Qui sommes-nous</a></li>
+          <li><a href="#">Notre équipe</a></li>
+          <li><a href="#">Nos valeurs</a></li>
+          <li><a href="#">Nos statuts</a></li>
+          <li><a href="#">Adhérer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Nos actions</h4>
+        <ul>
+          <li><a href="#guichet">Guichet d'accueil</a></li>
+          <li><a href="#">Formation en entreprise</a></li>
+          <li><a href="#">Conférences</a></li>
+          <li><a href="#chiffres">Observatoire</a></li>
+          <li><a href="#">Réseau de pros</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:contact@protecttravail.fr">contact@protecttravail.fr</a></li>
+          <li><a href="#">Montauban, 82000</a></li>
+          <li><a href="#">Permanences : sur RDV</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Protect Travail — Association loi 1901 — SIRET en cours d'immatriculation</p>
+      <div class="footer-legal">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+        <a href="#">RGPD</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">✓ Message envoyé — nous vous répondons sous 48h.</div>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 4000);
+  e.target.reset();
+}
+
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 60) {
+    nav.style.boxShadow = '0 1px 24px rgba(0,0,0,0.08)';
+  } else {
+    nav.style.boxShadow = 'none';
+  }
+});
+
+// Intersection observer pour animations au scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.pilier, .step, .chiffre-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity .5s ease, transform .5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
